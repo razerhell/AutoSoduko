@@ -16,14 +16,21 @@ protected:
 
 public:
 	// 提供三种形式的构造函数：无参，全参，拷贝构造函数
-	ZMatrix(vector<T> data = vector<T>(), size_t row = 0, size_t col = 0);
+	ZMatrix(size_t row = 0, size_t col = 0);
+	ZMatrix(vector<T> data, size_t row, size_t col);
 	ZMatrix(const ZMatrix &other);
+	virtual ~ZMatrix();
 
 	const vector<T>&	getData() const;
 	vector<T>			getData();
 
 	// 重载 = 操作符
-	ZMatrix<T>& operator = (const ZMatrix& other);
+	virtual ZMatrix<T>& operator = (const ZMatrix& other);
+
+	bool at(size_t index, T & r) const ;
+	bool at(size_t x, size_t y, T & r) const ;
+	bool set(size_t index, const T& v);
+	bool set(size_t x, size_t y, const T& v);
 };
 
 #include "zmatrix.inl"
