@@ -31,6 +31,11 @@ public:
 	bool at(size_t x, size_t y, T & r) const ;
 	bool set(size_t index, const T& v);
 	bool set(size_t x, size_t y, const T& v);
+
+	// 取得第i列的数据
+	bool getCol(const int& index, vector<T>& r);
+	// 取得第i行的数据
+	bool getRow(const int& index, vector<T>& r);
 };
 
 #include "zmatrix.inl"

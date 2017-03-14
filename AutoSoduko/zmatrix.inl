@@ -81,3 +81,25 @@ inline bool ZMatrix<T>::set(size_t x, size_t y, const T & v)
 	size_t index = y * mColSize + x;
 	return set(index, v);
 }
+
+template<typename T>
+inline bool ZMatrix<T>::getCol(const int& index, vector<T>& r)
+{
+	if (index >= mColSize || 0 == mRowSize) return false;
+	r.clear();
+	r.resize(mRowSize);
+	for (int i = 0; i < mRowSize; ++i)
+		at(i, index, r[i]);
+	return true;
+}
+
+template<typename T>
+inline bool ZMatrix<T>::getRow(const int & index, vector<T>& r)
+{
+	if (index >= mRowSize || 0 == mColSize) return false;
+	r.clear();
+	r.resize(mColSize);
+	for (int i = 0; i < mRowSize; ++i)
+		at(index, i, r[i]);
+	return true;
+}
