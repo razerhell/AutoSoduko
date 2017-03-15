@@ -33,9 +33,9 @@ public:
 	bool set(size_t x, size_t y, const T& v);
 
 	// 取得第i列的数据
-	bool getCol(const int& index, vector<T>& r);
+	bool getCol(const int& index, vector<T>& r) const;
 	// 取得第i行的数据
-	bool getRow(const int& index, vector<T>& r);
+	bool getRow(const int& index, vector<T>& r) const;
 };
 
 #include "zmatrix.inl"

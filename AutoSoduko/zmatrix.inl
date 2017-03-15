@@ -83,7 +83,7 @@ inline bool ZMatrix<T>::set(size_t x, size_t y, const T & v)
 }
 
 template<typename T>
-inline bool ZMatrix<T>::getCol(const int& index, vector<T>& r)
+inline bool ZMatrix<T>::getCol(const int& index, vector<T>& r) const
 {
 	if (index >= mColSize || 0 == mRowSize) return false;
 	r.clear();
@@ -94,7 +94,7 @@ inline bool ZMatrix<T>::getCol(const int& index, vector<T>& r)
 }
 
 template<typename T>
-inline bool ZMatrix<T>::getRow(const int & index, vector<T>& r)
+inline bool ZMatrix<T>::getRow(const int & index, vector<T>& r) const
 {
 	if (index >= mRowSize || 0 == mColSize) return false;
 	r.clear();
