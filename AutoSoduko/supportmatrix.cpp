@@ -1,4 +1,5 @@
 #include "supportmatrix.h"
+#include "sudokumatrix.h"
 #include <set>
 
 int SupportMatrix::converByVector(const int &x, const int &y, const vector<int>& converMatrialVector)
@@ -39,7 +40,16 @@ SupportMatrix::SupportMatrix() : ZMatrix(9, 9)
 		}
 }
 
-int SupportMatrix::converBySoduko(const SudokuMatrix & sdkM)
+SupportMatrix::SupportMatrix(const SupportMatrix & other)
+{	
+	*this = other;
+}
+
+SupportMatrix::~SupportMatrix()
+{
+}
+
+int SupportMatrix::converBySoduko(const SudokuMatrix &sdkM)
 {
 	int converedSets = 0;		// 被操作的集合的数量
 	for (int i = 0; i < 9; ++i)
@@ -110,6 +120,3 @@ int SupportMatrix::getTheOnlyNumber()
 	return 0;
 }
 
-SupportMatrix::~SupportMatrix()
-{
-}
