@@ -45,32 +45,32 @@ int SupportMatrix::converBySoduko(const SudokuMatrix & sdkM)
 	for (int i = 0; i < 9; ++i)
 		for (int j = 0; j < 9; ++j)
 		{
-			int row = i;	// 将作为收缩条件的行（纵坐标）
-			int col = j;	// 将作为收缩条件的列（横坐标）
-			int gridRow, gridCol;	// 将作为收缩条件的区块坐标
-			gridRow = row / 3;
-			gridCol = col / 3;
+			int y = i;	// 将作为收缩条件的行（纵坐标）
+			int x = j;	// 将作为收缩条件的列（横坐标）
+			int gridY, gridX;	// 将作为收缩条件的区块坐标
+			gridY = y / 3;
+			gridX = x / 3;
 
 			// 若该位置上已填数字，则应直接清空该位置set无需再进行收缩
 			int numberTest;
-			if (sdkM.at(col, row, numberTest) && numberTest != 0)
+			if (sdkM.at(x, y, numberTest) && numberTest != 0)
 			{
-				mData[i * 9 + j].clear();
+				mData[y * 9 + x].clear();
 				continue ;
 			}
 
 			// 以行进行收缩
 			vector<int> converMatrialVector;
-			if (sdkM.getRow(row, converMatrialVector))
-				converedSets += converByVector(j, i, converMatrialVector) > 0 ? 1 : 0;
+			if (sdkM.getRow(y, converMatrialVector))
+				converedSets += converByVector(x, y, converMatrialVector) > 0 ? 1 : 0;
 
 			// 以列进行收缩
-			if (sdkM.getCol(col, converMatrialVector))
-				converedSets += converByVector(j, i, converMatrialVector) > 0 ? 1 : 0;
+			if (sdkM.getCol(x, converMatrialVector))
+				converedSets += converByVector(x, y, converMatrialVector) > 0 ? 1 : 0;
 
 			// 以区块进行收缩
-			if (sdkM.getGrid(gridCol, gridRow, converMatrialVector))
-				converedSets += converByVector(j, i, converMatrialVector) > 0 ? 1 : 0;
+			if (sdkM.getGrid(gridX, gridY, converMatrialVector))
+				converedSets += converByVector(x, y, converMatrialVector) > 0 ? 1 : 0;
 		}
 
 	return converedSets;

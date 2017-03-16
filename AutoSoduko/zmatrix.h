@@ -40,8 +40,8 @@ public:
 	bool getRow(const size_t& index, vector<T>& r) const;
 	bool getRow(const size_t& index, std::set<T>& r, bool isInit = true) const;
 	// 取得指定网格中的数据（只有当矩阵规格为9x9时可用）
-	bool getGrid(const size_t &x, const size_t &y, vector<T> gridVector) const;
-	bool getGrid(const size_t &x, const size_t &y, std::set<T> gridSet, bool isInit = true) const;
+	bool getGrid(const size_t &x, const size_t &y, vector<T> &gridVector) const;
+	bool getGrid(const size_t &x, const size_t &y, std::set<T> &gridSet, bool isInit = true) const;
 };
 
 #include "zmatrix.inl"

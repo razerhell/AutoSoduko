@@ -89,7 +89,7 @@ inline bool ZMatrix<T>::getCol(const size_t& index, vector<T>& r) const
 	r.clear();
 	r.resize(mRowSize);
 	for (size_t i = 0; i < mRowSize; ++i)
-		at(i, index, r[i]);
+		at(index, i, r[i]);
 	return true;
 }
 
@@ -100,7 +100,7 @@ inline bool ZMatrix<T>::getCol(const size_t & index, std::set<T>& r, bool isInit
 	if (isInit) r.clear();
 	int n;
 	for (size_t i = 0; i < mRowSize; ++i)
-		if (at(i, index, n))
+		if (at(index, i, n))
 			r.insert(n);
 	return true;
 }
@@ -110,8 +110,9 @@ inline bool ZMatrix<T>::getRow(const size_t & index, vector<T>& r) const
 {
 	if (index >= mRowSize || 0 == mColSize) return false;
 	r.clear();
+	r.resize(mColSize);
 	for (size_t i = 0; i < mRowSize; ++i)
-		at(index, i, r[i]);
+		at(i, index, r[i]);
 	return true;
 }
 
@@ -122,13 +123,13 @@ inline bool ZMatrix<T>::getRow(const size_t & index, std::set<T>& r, bool isInit
 	if (isInit) r.clear();
 	int n;
 	for (size_t i = 0; i < mRowSize; ++i)
-		if (at(index, i, n))
+		if (at(i, index, n))
 			r.insert(n);
 	return true;
 }
 
 template<typename T>
-inline bool ZMatrix<T>::getGrid(const size_t & x, const size_t & y, vector<T> gridVector) const
+inline bool ZMatrix<T>::getGrid(const size_t & x, const size_t & y, vector<T> &gridVector) const
 {
 	if (mRowSize != 9 || mColSize != 9) return false;
 	// 下标非法不允许则认为无法找到指定的区块
@@ -148,7 +149,7 @@ inline bool ZMatrix<T>::getGrid(const size_t & x, const size_t & y, vector<T> gr
 }
 
 template<typename T>
-inline bool ZMatrix<T>::getGrid(const size_t & x, const size_t & y, std::set<T> gridSet, bool isInit) const
+inline bool ZMatrix<T>::getGrid(const size_t & x, const size_t & y, std::set<T> &gridSet, bool isInit) const
 {
 	if (mRowSize != 9 || mColSize != 9) return false;
 	// 下标非法不允许则认为无法找到指定的区块

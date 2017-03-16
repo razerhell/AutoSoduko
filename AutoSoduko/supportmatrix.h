@@ -22,10 +22,10 @@ public:
 	// 默认构造函数，默认构造完成之后矩阵中每一个位置的集合都是全集
 	SupportMatrix();
 
-	// 使用传入的soduko矩阵对辅助矩阵进行收缩，返回被操作的集合数量
+	// 使用传入的soduko矩阵对辅助矩阵进行收缩，返回0表示没有集合被操作
 	int converBySoduko(const SudokuMatrix& sdkM);
 
-	// 使用传入的数字对辅助矩阵进行收缩，返回被操作的集合数量
+	// 使用传入的数字对辅助矩阵进行收缩，返回0表示没有集合被操作
 	int converByNumber(const int & x, const int & y, const int & number);
 
 	// 查询是否存在只含有一个元素的集合，若存在则将其返回，否则返回值为0
