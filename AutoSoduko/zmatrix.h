@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
 using namespace std;
 
 template <typename T>
@@ -33,9 +34,14 @@ public:
 	bool set(size_t x, size_t y, const T& v);
 
 	// 取得第i列的数据
-	bool getCol(const int& index, vector<T>& r) const;
+	bool getCol(const size_t& index, vector<T>& r) const;
+	bool getCol(const size_t& index, std::set<T>& r, bool isInit = true) const;
 	// 取得第i行的数据
-	bool getRow(const int& index, vector<T>& r) const;
+	bool getRow(const size_t& index, vector<T>& r) const;
+	bool getRow(const size_t& index, std::set<T>& r, bool isInit = true) const;
+	// 取得指定网格中的数据（只有当矩阵规格为9x9时可用）
+	bool getGrid(const size_t &x, const size_t &y, vector<T> gridVector) const;
+	bool getGrid(const size_t &x, const size_t &y, std::set<T> gridSet, bool isInit = true) const;
 };
 
 #include "zmatrix.inl"

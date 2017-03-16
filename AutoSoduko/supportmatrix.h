@@ -2,7 +2,7 @@
 
 #include "gridmatrix.h"
 #include "zmatrix.h"
-#include "sodukomatrix.h"
+#include "sudokumatrix.h"
 #include <set>
 
 // 使用std::set<int> 来构造辅助矩阵
@@ -23,10 +23,15 @@ public:
 	SupportMatrix();
 
 	// 使用传入的soduko矩阵对辅助矩阵进行收缩，返回被操作的集合数量
-	int converBySoduko(const SodukoMatrix& sdkM);
+	int converBySoduko(const SudokuMatrix& sdkM);
 
 	// 使用传入的数字对辅助矩阵进行收缩，返回被操作的集合数量
 	int converByNumber(const int & x, const int & y, const int & number);
+
+	// 查询是否存在只含有一个元素的集合，若存在则将其返回，否则返回值为0
+	// 返回值形式为x * 100 + y * 10 + number
+	// 其中number为该集合中唯一的元素
+	int getTheOnlyNumber();
 
 	virtual ~SupportMatrix();
 };

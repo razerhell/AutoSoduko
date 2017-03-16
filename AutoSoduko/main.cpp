@@ -1,8 +1,8 @@
-#include "sodukomatrix.h"
+#include "sudokumatrix.h"
 #include "gridmatrix.h"
 
 // 输出soduko中的数据内容
-void printSodukoInt(const SodukoMatrix& sdkM)
+void printSodukoInt(const SudokuMatrix& sdkM)
 {
 	for (int i = 0; i < 9; ++i)
 	{
@@ -20,13 +20,9 @@ void printSodukoInt(const SodukoMatrix& sdkM)
 
 int main(int argc, char * argv[])
 {
-	GridMatrix gm;
-	SodukoMatrix sm;
+	SudokuMatrix sdkM;
 
-	// 构造一个辅助计算数组
-
-
-	printSodukoInt(sm);
+	printSodukoInt(sdkM);
 
 	system("pause");
 	return 0;

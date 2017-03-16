@@ -5,7 +5,7 @@ int SupportMatrix::converByVector(const int &x, const int &y, const vector<int>&
 {
 	int converedElements = 0;
 	int index = y * 9 + x;
-	for (int i = 0; i < converMatrialVector.size(); ++i)
+	for (size_t i = 0; i < converMatrialVector.size(); ++i)
 		converedElements += converSetByNumber(x, y, converMatrialVector[i]);
 	return converedElements;
 }
@@ -39,7 +39,7 @@ SupportMatrix::SupportMatrix() : ZMatrix(9, 9)
 		}
 }
 
-int SupportMatrix::converBySoduko(const SodukoMatrix & sdkM)
+int SupportMatrix::converBySoduko(const SudokuMatrix & sdkM)
 {
 	int converedSets = 0;		// 被操作的集合的数量
 	for (int i = 0; i < 9; ++i)
@@ -95,6 +95,19 @@ int SupportMatrix::converByNumber(const int & x, const int & y, const int & numb
 		for (int j = 0; j < 3; ++j)
 			converedSets += converSetByNumber(gridX * 3 + i, gridY * 3 + j, number);
 	return converedSets;
+}
+
+int SupportMatrix::getTheOnlyNumber()
+{
+	for (int i = 0; i < 9; ++i)
+		for (int j = 0; j < 9; ++j)
+		{
+			std::set<int> tempS = mData[j * 9 + i];
+			if (tempS.size() != 1) continue;
+			int number = *(tempS.begin());
+			return i * 100 + j * 10 + number;
+		}
+	return 0;
 }
 
 SupportMatrix::~SupportMatrix()
