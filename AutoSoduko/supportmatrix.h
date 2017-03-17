@@ -34,5 +34,8 @@ public:
 	// 其中number为该集合中唯一的元素
 	int getTheOnlyNumber();
 
+	// 找到一个元素最少的非零集合，返回集合坐标x * 10 + y
+	int getMinSet(std::set<int> &set);
+
 	virtual ~SupportMatrix();
 };

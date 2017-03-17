@@ -41,8 +41,30 @@ SupportMatrix::SupportMatrix() : ZMatrix(9, 9)
 }
 
 SupportMatrix::SupportMatrix(const SupportMatrix & other)
-{	
+{
 	*this = other;
+}
+
+int SupportMatrix::getMinSet(std::set<int>& s)
+{
+	int index = -1;
+	s.clear();
+	size_t i;
+	// 找到第一个不为0的集合
+	for (i = 0; i < mData.size(); ++i)
+	{
+		if (!mData[i].empty())	continue;
+		else					break;
+	}
+	index = i;
+	// 与剩余的非空集合进行比较
+	for (NULL; i < mData.size(); ++i)
+		if (!mData[i].empty() && mData[i].size() < mData[index].size())
+			index = i;
+	s = mData[index];
+	index = ((index % 9) * 10) + index / 9;
+
+	return index;
 }
 
 SupportMatrix::~SupportMatrix()
@@ -66,7 +88,7 @@ int SupportMatrix::converBySoduko(const SudokuMatrix &sdkM)
 			if (sdkM.at(x, y, numberTest) && numberTest != 0)
 			{
 				mData[y * 9 + x].clear();
-				continue ;
+				continue;
 			}
 
 			// 以行进行收缩
@@ -95,7 +117,7 @@ int SupportMatrix::converByNumber(const int & x, const int & y, const int & numb
 	// 对元素所在行上的集合进行收缩
 	for (int i = 0; i < 9; ++i)
 		converedSets += converSetByNumber(i, y, number);
-	
+
 	// 对元素所在列上的集合进行收缩
 	for (int i = 0; i < 9; ++i)
 		converedSets += converSetByNumber(x, i, number);
@@ -109,14 +131,19 @@ int SupportMatrix::converByNumber(const int & x, const int & y, const int & numb
 
 int SupportMatrix::getTheOnlyNumber()
 {
-	for (int i = 0; i < 9; ++i)
+	for (size_t index = 0; index < mData.size(); ++index)
+	{
+		if (mData[index].size() != 1) continue;
+		return ((index % 9) * 100 + index / 9 * 10 + *(mData[index].begin()));
+	}
+	/*for (int i = 0; i < 9; ++i)
 		for (int j = 0; j < 9; ++j)
 		{
 			std::set<int> tempS = mData[j * 9 + i];
 			if (tempS.size() != 1) continue;
 			int number = *(tempS.begin());
 			return i * 100 + j * 10 + number;
-		}
-	return 0;
+		}*/
+	return -1;
 }
 
