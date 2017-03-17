@@ -53,7 +53,7 @@ int SupportMatrix::getMinSet(std::set<int>& s)
 	// 找到第一个不为0的集合
 	for (i = 0; i < mData.size(); ++i)
 	{
-		if (!mData[i].empty())	continue;
+		if (mData[i].empty())	continue;
 		else					break;
 	}
 	index = i;
@@ -63,7 +63,6 @@ int SupportMatrix::getMinSet(std::set<int>& s)
 			index = i;
 	s = mData[index];
 	index = ((index % 9) * 10) + index / 9;
-
 	return index;
 }
 

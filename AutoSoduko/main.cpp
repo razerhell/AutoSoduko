@@ -43,6 +43,8 @@ int tryReasonSpace(SudokuMatrix &m, SupportMatrix &supM, bool isDisplay)
 	// 查询辅助矩阵中是否存在只有一个元素的集合并将其返回
 	while (number = supM.getTheOnlyNumber())
 	{
+		if (number < 0)
+			return spaceCount;	// 没有仅仅只有一个元素的集合可供选择
 		int x = number / 100;	number = number % 100;
 		int y = number / 10;	number = number % 10;
 		// 是否需要检查是否冲突？
@@ -70,7 +72,7 @@ int recursiveSolve(SudokuMatrix &sdkM, SupportMatrix &supM)
 		return 1;
 	if (temp < 0)
 	{
-		sdkM.printToScreen();
+		//sdkM.printToScreen();
 		return 0;
 	}
 	// 得出一个元素最少的非空集合
@@ -80,6 +82,7 @@ int recursiveSolve(SudokuMatrix &sdkM, SupportMatrix &supM)
 		return 0;
 	int x = index / 10;
 	int y = index % 10;
+	// 尝试用该集合中的元素进行填空并递归
 	std::set<int>::iterator intIte;
 	SudokuMatrix tempM = sdkM;
 	SupportMatrix tempSM = supM;
@@ -89,8 +92,9 @@ int recursiveSolve(SudokuMatrix &sdkM, SupportMatrix &supM)
 		int number = *intIte;
 		tempM.set(x, y, number);
 		tempSM.converByNumber(x, y, number);
-		if (!recursiveSolve(tempM, tempSM)) continue ;
+		if (1 != recursiveSolve(tempM, tempSM)) continue ;
 		sdkM = tempM;
+		supM = tempSM;
 		return 1;
 	}
 	return 0;

@@ -152,8 +152,8 @@ inline bool ZMatrix<T>::getGrid(const size_t & x, const size_t & y, std::set<T> 
 	if (mRowSize != 9 || mColSize != 9) return false;
 	// 下标非法不允许则认为无法找到指定的区块
 	if (x < 0 || x > 2 || y < 0 || y > 2) return false;
-	int sx = x * 3;
-	int sy = y * 3;
+	int sx = x / 3;
+	int sy = y / 3;
 	if (isInit) gridSet.clear();
 	for (int i = 0; i < 3; ++i)
 	{
