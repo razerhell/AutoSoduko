@@ -96,7 +96,6 @@ inline bool ZMatrix<T>::getCol(const size_t & index, std::set<T>& r, bool isInit
 {
 	if (index >= mColSize || 0 == mRowSize) return false;
 	if (isInit) r.clear();
-	int n;
 
 	for (size_t i = 0; i < mRowSize; ++i)
 		r.insert(mData[i * mColSize + index]);
@@ -120,7 +119,6 @@ inline bool ZMatrix<T>::getRow(const size_t & index, std::set<T>& r, bool isInit
 {
 	if (index >= mRowSize || 0 == mColSize) return false;
 	if (isInit) r.clear();
-	int n;
 	for (size_t i = 0; i < mColSize; ++i)
 			r.insert(mData[index * mColSize + i]);
 	return true;

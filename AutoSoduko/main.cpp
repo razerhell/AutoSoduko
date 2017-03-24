@@ -1,29 +1,54 @@
 #include "sudokumatrix.h"
 #include "supportmatrix.h"
 #include "gridmatrix.h"
+#include <fstream>
 
 // 推导空白处应填的数字
 int tryReasonSpace(SudokuMatrix &m, SupportMatrix &supM, bool isDisplay = false);
 int solveSudokuBySupportMatrix(SudokuMatrix &sdkM, bool isDisplay = false);
 int recursiveSolve(SudokuMatrix &sdkM, SupportMatrix &supM);
+int solveSudoku(string fileName);
+int loadFileToVector(string fileName, vector<int> &data);
+
 
 int main(int argc, char * argv[])
 {
-	SudokuMatrix sdkM;
+	string fileName = "data1.txt";
+	if (argc != 0) fileName = argv[0];
+	solveSudoku(fileName);
 
-	if (!sdkM.readFile("data1.txt"))
+	system("pause");
+	return 0;
+}
+
+int solveSudoku(string fileName)
+{
+	vector<int> data;
+	if (!loadFileToVector(fileName, data))
 	{
 		printf("\nload file error\n");
 		system("pause");
 		return 1;
 	}
+
+	SudokuMatrix sdkM(data.data());
 	sdkM.printToScreen();
 
+	// 调用入口函数进行求解
 	solveSudokuBySupportMatrix(sdkM, true);
 	sdkM.printToScreen();
-
-	system("pause");
 	return 0;
+}
+
+int loadFileToVector(string fileName, vector<int> &data)
+{
+	data.resize(81);
+	ifstream in(fileName);
+	if (!in.is_open()) return 0;
+	int i = 0;
+	while (i < 81 && !in.eof())
+		in >> data[i++];
+	return 1;
 }
 
 int solveSudokuBySupportMatrix(SudokuMatrix &sdkM, bool isDisplay)
