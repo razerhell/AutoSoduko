@@ -101,10 +101,16 @@ int tryReasonSpace(SudokuMatrix &m, SupportMatrix &supM, bool isDisplay)
 int recursiveSolve(SudokuMatrix &sdkM, SupportMatrix &supM)
 {
 
+	SudokuMatrix tempM = sdkM;
+	SupportMatrix tempSM = supM;
 	// 进行推理型填空
-	int temp = tryReasonSpace(sdkM, supM);
-	if (sdkM.getSpaceCount() == 0) 
+	int temp = tryReasonSpace(tempM, tempSM);
+	if (tempM.getSpaceCount() == 0)
+	{
+		sdkM = tempM;
+		supM = tempSM;
 		return 1;
+	}
 	if (temp < 0)
 	{
 		//sdkM.printToScreen();
@@ -112,24 +118,23 @@ int recursiveSolve(SudokuMatrix &sdkM, SupportMatrix &supM)
 	}
 	// 得出一个元素最少的非空集合
 	std::set<int> tempS;
-	int index = supM.getMinSet(tempS);
+	int index = tempSM.getMinSet(tempS);
 	if (index < 0) 
 		return 0;
 	int x = index / 10;
 	int y = index % 10;
 	// 尝试用该集合中的元素进行填空并递归
 	std::set<int>::iterator intIte;
-	SudokuMatrix tempM = sdkM;
-	SupportMatrix tempSM = supM;
 	tempSM.set(x, y, std::set<int>());
 	for (intIte = tempS.begin(); intIte != tempS.end(); ++intIte)
 	{
 		int number = *intIte;
 		tempM.set(x, y, number);
-		tempSM.converByNumber(x, y, number);
-		if (1 != recursiveSolve(tempM, tempSM)) continue ;
+		SupportMatrix ttsm = tempSM;
+		ttsm.converByNumber(x, y, number);
+		if (1 != recursiveSolve(tempM, ttsm)) continue ;
 		sdkM = tempM;
-		supM = tempSM;
+		supM = ttsm;
 		return 1;
 	}
 	return 0;
