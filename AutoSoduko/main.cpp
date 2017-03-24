@@ -13,8 +13,8 @@ int loadFileToVector(string fileName, vector<int> &data);
 
 int main(int argc, char * argv[])
 {
-	string fileName = "data1.txt";
-	if (argc != 0) fileName = argv[0];
+	string fileName = "data2.txt";
+	if (argc > 1) fileName = argv[1];
 	solveSudoku(fileName);
 
 	system("pause");
@@ -23,15 +23,18 @@ int main(int argc, char * argv[])
 
 int solveSudoku(string fileName)
 {
-	vector<int> data;
-	if (!loadFileToVector(fileName, data))
-	{
-		printf("\nload file error\n");
-		system("pause");
-		return 1;
-	}
+	//vector<int> data;
+	//if (!loadFileToVector(fileName, data))
+	//{
+	//	printf("\nload file error\n");
+	//	system("pause"); 
+	//	return 1;
+	//}
 
-	SudokuMatrix sdkM(data.data());
+	//SudokuMatrix sdkM(data.data());
+
+	SudokuMatrix sdkM;
+	sdkM.readFile(fileName);
 	sdkM.printToScreen();
 
 	// 调用入口函数进行求解
@@ -56,7 +59,13 @@ int solveSudokuBySupportMatrix(SudokuMatrix &sdkM, bool isDisplay)
 	SupportMatrix supM;
 	supM.converBySoduko(sdkM);
 
-	return recursiveSolve(sdkM, supM);
+	while (!recursiveSolve(sdkM, supM))
+	{	
+		sdkM.printToScreen();
+		supM.converBySoduko(sdkM);
+		system("pause");
+	}
+	return 1;
 }
 
 int tryReasonSpace(SudokuMatrix &m, SupportMatrix &supM, bool isDisplay)

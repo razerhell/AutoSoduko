@@ -56,14 +56,20 @@ int SupportMatrix::getMinSet(std::set<int>& s)
 		if (mData[i].empty())	continue;
 		else					break;
 	}
-	index = i;
-	// 与剩余的非空集合进行比较
-	for (NULL; i < mData.size(); ++i)
-		if (!mData[i].empty() && mData[i].size() < mData[index].size())
-			index = i;
-	s = mData[index];
-	index = ((index % 9) * 10) + index / 9;
-	return index;
+
+	if (i > 80) 
+		return -1;
+	s = mData[i];
+	return i = ((i % 9) * 10) + i / 9;
+
+	//index = i;
+	//// 与剩余的非空集合进行比较
+	//for (NULL; i < mData.size(); ++i)
+	//	if (!mData[i].empty() && mData[i].size() < mData[index].size())
+	//		index = i;
+	//s = mData[index];
+	//index = ((index % 9) * 10) + index / 9;
+	//return index;
 }
 
 SupportMatrix::~SupportMatrix()
